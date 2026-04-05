@@ -1,24 +1,41 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from database import SessionLocal, engine
+import models
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-tarefas = []
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 @app.get("/tarefas")
-def listar_tarefas():
-    return tarefas
+def listar_tarefas(db: Session = Depends(get_db)):
+    return db.query(models.Tarefa).all()
 
 @app.post("/tarefas")
-def criar_tarefa(tarefa: str):
-    tarefas.append(tarefa)
-    return {"message": "Tarefa criada com sucesso!"}
+def criar_tarefa(titulo: str, db: Session = Depends(get_db)):
+    tarefa = models.Tarefa(titulo=titulo)
+    db.add(tarefa)
+    db.commit()
+    db.refresh(tarefa)
+    return tarefa
 
 @app.put("/tarefas/{id}")
-def atualizar_tarefas(id: int, nova_tarefa: str):
-    tarefas[id] = nova_tarefa
-    return {"message": "Tarefa atualizada com sucesso!"}
+def atualizar_tarefa(id: int, titulo: str, db: Session = Depends(get_db)):
+    tarefa = db.query(models.Tarefa).filter(models.Tarefa.id == id).first()
+    tarefa.titulo = titulo
+    db.commit()
+    return tarefa
 
 @app.delete("/tarefas/{id}")
-def retirar_tarefa(id: int):
-    tarefas.pop(id)
-    return {"message": "Tarefa removida com sucesso!"}
+def deletar_tarefa(id: int, db: Session = Depends(get_db)):
+    tarefa = db.query(models.Tarefa).filter(models.Tarefa.id == id).first()
+    db.delete(tarefa)
+    db.commit()
+    return {"message": "Tarefa deletada com sucesso!"}
