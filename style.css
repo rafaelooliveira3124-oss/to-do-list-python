@@ -1,44 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color:beige;
+    background-color: #f0f2f5;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
-    margin: 0 auto;
-    padding: 20px;
+    background-color: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
     max-width: 600px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 24px;
 }
 
 .input-area {
     display: flex;
     gap: 10px;
     align-items: center;
+    margin-bottom: 24px;
 }
 
 input {
-    width: 500px;
-    padding: 20px;
-    border: 1px solid #cccccc;
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border 0.2s;
+}
+
+input:focus {
+    border-color: #4a90e2;
 }
 
 button {
-    background-color:cornflowerblue;
-    color: black;
+    background-color: #4a90e2;
+    color: white;
     border-radius: 8px;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border: none;
     cursor: pointer;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background-color: #357abd;
 }
 
 ul {
     list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
 }
 
 li {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
-    
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #f8f9ff;
+    border: 1px solid #e0e0e0;
+    min-height: 120px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+li:last-child {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+li span {
+    font-size: 15px;
+    color: #333333;
+    flex: 1;
 }
 
 li button {
@@ -47,18 +108,15 @@ li button {
     cursor: pointer;
     font-size: 18px;
     padding: 5px;
+    transition: transform 0.2s;
 }
 
 li button:hover {
     transform: scale(1.2);
 }
 
-li:last-child {
-    border-bottom: none;
-}
-
-h1 {
-    text-align: center;
+li:hover {
+    transform: translateY(-3px);
 }
 
 .concluida {
