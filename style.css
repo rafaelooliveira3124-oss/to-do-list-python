@@ -35,9 +35,22 @@ ul {
 }
 
 li {
-    padding: 20px;
-    border-bottom: 1px solid #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     
+}
+
+li button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+li button:hover {
+    transform: scale(1.2);
 }
 
 li:last-child {
@@ -46,4 +59,9 @@ li:last-child {
 
 h1 {
     text-align: center;
+}
+
+.concluida {
+    text-decoration: line-through;
+    color: #aaaaaa;
 }

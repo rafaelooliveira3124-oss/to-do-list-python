@@ -2,10 +2,23 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 import models
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+from database import SessionLocal, engine
+import models
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+models.Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
@@ -26,10 +39,10 @@ def criar_tarefa(titulo: str, db: Session = Depends(get_db)):
     db.refresh(tarefa)
     return tarefa
 
-@app.put("/tarefas/{id}")
-def atualizar_tarefa(id: int, titulo: str, db: Session = Depends(get_db)):
+@app.put("/tarefas/{id}/concluir")
+def concluir_tarefa(id: int, db: Session = Depends(get_db)):
     tarefa = db.query(models.Tarefa).filter(models.Tarefa.id == id).first()
-    tarefa.titulo = titulo
+    tarefa.concluida = True
     db.commit()
     return tarefa
 
