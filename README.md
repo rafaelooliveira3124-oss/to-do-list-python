@@ -4,7 +4,7 @@ Aplicação full stack para gerenciar tarefas, com back-end em Python e interfac
 
 ## 🖥️ Demonstração
 
-> Adicione um GIF do projeto funcionando aqui
+![Demonstração do projeto](assets/demo.gif)
 
 ## 📋 Funcionalidades
 
